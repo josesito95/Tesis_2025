@@ -78,6 +78,6 @@ public class AdministradorLetras : MonoBehaviour
     // Se llama desde el botón al hacer clic
     public void IrANivel1()
     {
-        SceneManager.LoadScene("Nivel1_LetraO"); // Asegurate de que "Nivel1" esté en las Build Settings
+        SceneManager.LoadScene("Nivel_1"); // Asegurate de que "Nivel1" esté en las Build Settings
     }
 }

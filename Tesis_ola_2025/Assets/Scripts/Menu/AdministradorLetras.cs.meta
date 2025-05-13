@@ -3,7 +3,14 @@ guid: 23559a1595dc7e14994cf5a1e66177dd
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - letraO: {instanceID: 0}
+  - letraL: {instanceID: 0}
+  - letraA: {instanceID: 0}
+  - materialEncendido: {instanceID: 0}
+  - botonComenzar: {instanceID: 0}
+  - camara: {instanceID: 0}
+  - cameraFollow: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
