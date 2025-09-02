@@ -21,6 +21,7 @@ public class PixelatedReveal : MonoBehaviour
     float _gazeTimer;
     bool _isTargeted;
     bool _isRevealed;
+    bool _alreadyCounted = false;
     int _propId;
 
     void Awake()
@@ -61,6 +62,12 @@ public class PixelatedReveal : MonoBehaviour
             {
                 _isRevealed = true;
                 if (stayRevealed) SetBlocks(revealedBlocks);
+                if (!_alreadyCounted) // <-- chequeamos si ya sumó
+    {
+        FindObjectOfType<RevealCounter>().Add1();
+        _alreadyCounted = true;
+    }
+                
             }
         }
 
