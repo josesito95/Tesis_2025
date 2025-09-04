@@ -5,14 +5,18 @@ public class PixelatedReveal : MonoBehaviour
 {
     [Header("Material/Shader")]
     public string pixelBlocksProperty = "_PixelBlocks";
-    [Range(1,4096)] public int revealedBlocks = 1;      // nítido
-    [Range(1,4096)] public int startBlocks = 64;        // pixelado inicial
-    [Header("Gaze Settings")]
-    public float gazeSecondsToReveal = 1.5f;           // tiempo mirando para revelar
-    public bool stayRevealed = true;                   // ¿queda revelada?
-    public float resetSpeed = 2f;                      // qué tan rápido vuelve a pixelarse si no queda revelada
+    [Range(1,4096)] public int revealedBlocks = 1;      
+    [Range(1,4096)] public int startBlocks = 64;        
 
-    // Lectura externa (para UI de progreso)
+    [Header("Gaze Settings")]
+    public float gazeSecondsToReveal = 1.5f;           
+    public bool stayRevealed = true;                   
+    public float resetSpeed = 2f;                      
+
+    [Header("Counter Reference")]
+    public RevealCounter counter;   // 🔹 referencia directa al contador
+
+    // Lectura externa
     public float Progress01 => Mathf.Clamp01(_gazeTimer / gazeSecondsToReveal);
     public bool IsRevealed => _isRevealed;
 
@@ -27,7 +31,6 @@ public class PixelatedReveal : MonoBehaviour
     void Awake()
     {
         _rend = GetComponent<Renderer>();
-        // por defecto, MeshCollider conviene en un Quad/plane
         if (!TryGetComponent<Collider>(out var c)) gameObject.AddComponent<BoxCollider>();
         _mpb = new MaterialPropertyBlock();
         _propId = Shader.PropertyToID(pixelBlocksProperty);
@@ -42,19 +45,16 @@ public class PixelatedReveal : MonoBehaviour
 
         if (!_isTargeted)
         {
-            // Si no está mirando y no quedó revelada, volvemos hacia startBlocks
             float current = GetBlocks();
             float next = Mathf.MoveTowards(current, startBlocks, resetSpeed * Time.deltaTime);
             SetBlocks(next);
-            _gazeTimer = Mathf.Max(0f, _gazeTimer - Time.deltaTime); // se va perdiendo el progreso
+            _gazeTimer = Mathf.Max(0f, _gazeTimer - Time.deltaTime);
         }
         else
         {
-            // Mantiene el timer cargándose mientras mira
             _gazeTimer += Time.deltaTime;
             float t = Mathf.Clamp01(_gazeTimer / gazeSecondsToReveal);
 
-            // Interpolamos de pixelado fuerte a nítido
             float blocks = Mathf.Lerp(startBlocks, revealedBlocks, t);
             SetBlocks(blocks);
 
@@ -62,16 +62,16 @@ public class PixelatedReveal : MonoBehaviour
             {
                 _isRevealed = true;
                 if (stayRevealed) SetBlocks(revealedBlocks);
-                if (!_alreadyCounted) // <-- chequeamos si ya sumó
-    {
-        FindObjectOfType<RevealCounter>().Add1();
-        _alreadyCounted = true;
-    }
-                
+
+                if (!_alreadyCounted && counter != null) // 🔹 usamos la referencia
+                {
+                    counter.Add1();
+                    _alreadyCounted = true;
+                }
             }
         }
 
-        _isTargeted = false; // se setea en true desde el raycast cada frame si sigue mirando
+        _isTargeted = false; 
     }
 
     public void MarkTargetedThisFrame()
@@ -84,6 +84,7 @@ public class PixelatedReveal : MonoBehaviour
         _isRevealed = false;
         _gazeTimer = 0f;
         SetBlocks(startBlocks);
+        _alreadyCounted = false;
     }
 
     void SetBlocks(float value)
