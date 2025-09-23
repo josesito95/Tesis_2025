@@ -5,16 +5,19 @@ public class PixelatedReveal : MonoBehaviour
 {
     [Header("Material/Shader")]
     public string pixelBlocksProperty = "_PixelBlocks";
-    [Range(1,4096)] public int revealedBlocks = 1;      
-    [Range(1,4096)] public int startBlocks = 64;        
+    [Range(1, 4096)] public int revealedBlocks = 1;
+    [Range(1, 4096)] public int startBlocks = 64;
 
     [Header("Gaze Settings")]
-    public float gazeSecondsToReveal = 1.5f;           
-    public bool stayRevealed = true;                   
-    public float resetSpeed = 2f;                      
+    public float gazeSecondsToReveal = 1.5f;
+    public bool stayRevealed = true;
+    public float resetSpeed = 2f;
 
     [Header("Counter Reference")]
-    public RevealCounter counter;   // 🔹 referencia directa al contador
+    public RevealCounter counter;
+
+    [Header("Luz de Revelado")] // 🔥 NUEVO
+    public PaintingLightController lightController; // 🔥 NUEVO
 
     // Lectura externa
     public float Progress01 => Mathf.Clamp01(_gazeTimer / gazeSecondsToReveal);
@@ -63,15 +66,21 @@ public class PixelatedReveal : MonoBehaviour
                 _isRevealed = true;
                 if (stayRevealed) SetBlocks(revealedBlocks);
 
-                if (!_alreadyCounted && counter != null) // 🔹 usamos la referencia
+                if (!_alreadyCounted)
                 {
-                    counter.Add1();
+                    if (counter != null)
+                        counter.Add1();
+
                     _alreadyCounted = true;
+
+                    // 🔥 NUEVO: encender luz cuando se revela
+                    if (lightController != null)
+                        lightController.TurnOnLight();
                 }
             }
         }
 
-        _isTargeted = false; 
+        _isTargeted = false;
     }
 
     public void MarkTargetedThisFrame()
