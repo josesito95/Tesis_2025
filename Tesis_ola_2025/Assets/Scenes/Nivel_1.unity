@@ -806,7 +806,7 @@ MonoBehaviour:
   stayRevealed: 1
   resetSpeed: 2
   counter: {fileID: 774151892}
-  lightController: {fileID: 0}
+  lightController: {fileID: 1030432524}
 --- !u!114 &1030432524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,7 +934,7 @@ Transform:
   m_GameObject: {fileID: 1052065783}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.98, y: 3.895, z: -0.34}
+  m_LocalPosition: {x: -6.84, y: 1.92, z: 1.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1504,7 +1504,7 @@ Transform:
   m_GameObject: {fileID: 1694943569}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.57, y: 3.9, z: 3.41}
+  m_LocalPosition: {x: -4.88, y: 1.96, z: 0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1550,7 +1550,7 @@ MonoBehaviour:
   stayRevealed: 1
   resetSpeed: 2
   counter: {fileID: 774151892}
-  lightController: {fileID: 0}
+  lightController: {fileID: 1834379200}
 --- !u!64 &1834379196
 MeshCollider:
   m_ObjectHideFlags: 0
