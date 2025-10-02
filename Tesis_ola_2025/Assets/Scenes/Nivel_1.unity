@@ -531,14 +531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516547ce50a7675478305d5c044d6594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2074376077}
-  orbitCenter: {fileID: 618071099}
-  wall: {fileID: 0}
-  orbitRadius: 5
-  degreesPerMeter: -30
-  clockwise: 1
-  rotationOffset: 180
-  startZ: 0
 --- !u!1 &663579470
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,7 +980,7 @@ MonoBehaviour:
   stayRevealed: 1
   resetSpeed: 2
   counter: {fileID: 774151892}
-  lightController: {fileID: 1030432524}
+  lightController: {fileID: 1214525898}
 --- !u!64 &1214525894
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1302,7 +1294,7 @@ Transform:
   m_GameObject: {fileID: 1502410308}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.36, y: 3.895, z: 3.7634237}
+  m_LocalPosition: {x: 0.36, y: 2.03, z: 2.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
