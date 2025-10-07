@@ -5,7 +5,7 @@ public class PaintingLightController : MonoBehaviour
 {
     [Header("Luz de revelado")]
     public Light revealLight;
-    public float targetIntensity = 2f;
+    public float targetIntensity = 200f;
     public float fadeTime = 1f;
 
     [Header("Efecto de parpadeo")]
@@ -19,6 +19,7 @@ public class PaintingLightController : MonoBehaviour
 
     void Start()
     {
+        // Empieza apagada pero guarda el targetIntensity del inspector
         if (revealLight != null)
             revealLight.intensity = 0f;
     }
@@ -36,25 +37,25 @@ public class PaintingLightController : MonoBehaviour
         if (lightAudio != null)
             lightAudio.Play();
 
-        // 💡 Parpadeo inicial
+        // 💡 Parpadeo inicial (usa el targetIntensity del inspector)
         for (int i = 0; i < flickerCount; i++)
         {
             if (revealLight != null)
-                revealLight.intensity = (i % 2 == 0) ? targetIntensity : 0f;
+                revealLight.intensity = (i % 200 == 0) ? targetIntensity : 0f;
 
             yield return new WaitForSeconds(flickerSpeed);
         }
 
-        // 🌅 Transición suave hasta la intensidad final
+        // 🌅 Transición suave desde 0 hasta targetIntensity
         float t = 0f;
-        float start = revealLight.intensity;
-        while (t < fadeTime)
+        while (t < fadeTime && revealLight != null)
         {
             t += Time.deltaTime;
-            revealLight.intensity = Mathf.Lerp(start, targetIntensity, t / fadeTime);
+            revealLight.intensity = Mathf.Lerp(0f, targetIntensity, t / fadeTime);
             yield return null;
         }
 
-        revealLight.intensity = targetIntensity;
+        if (revealLight != null)
+            revealLight.intensity = targetIntensity;
     }
 }
