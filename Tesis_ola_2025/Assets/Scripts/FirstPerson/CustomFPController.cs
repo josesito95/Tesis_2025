@@ -19,41 +19,40 @@ public class CustomFPController : MonoBehaviour
     public float speed;
 
     public bool HasKey { get; set; } = false;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        // --- CONTROL DE CÁMARA ---
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivity;
 
         yRotation += mouseX;
         xRotation -= mouseY;
-
         xRotation = Mathf.Clamp(xRotation, -60, 55);
 
         transform.rotation = Quaternion.Euler(0, yRotation, 0);
         camObj.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-
         camObj.transform.position = camPos.position;
 
+        // --- MOVIMIENTO Y ANIMACIÓN ---
         Move();
         AnimationControls();
     }
 
     void Move()
     {
-        Vector3 dir = (transform.forward * Input.GetAxisRaw("Vertical") + transform.right * Input.GetAxisRaw("Horizontal")).normalized;
+        // Solo permitir avance/retroceso (W y S)
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 dir = (transform.forward * vertical).normalized;
+
         transform.position += dir * speed * Time.deltaTime;
     }
 
     void AnimationControls()
     {
-        if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        if (vertical != 0)
         {
             anim.SetBool("Walking", true);
         }
@@ -62,6 +61,6 @@ public class CustomFPController : MonoBehaviour
             anim.SetBool("Walking", false);
         }
 
-        anim.SetFloat("Direction", Input.GetAxisRaw("Vertical"));
+        anim.SetFloat("Direction", vertical);
     }
 }
