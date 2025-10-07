@@ -1,30 +1,51 @@
 using UnityEngine;
+using System.Collections;
 
 public class PaintingLightController : MonoBehaviour
 {
-    [Header("Asignar en Inspector")]
-    public Light revealLight;          // La luz que va a prenderse
-    public float targetIntensity = 2f; // Qué tan fuerte se prende
-    public float fadeTime = 1f;        // Cuánto tarda en prender
+    [Header("Luz de revelado")]
+    public Light revealLight;
+    public float targetIntensity = 2f;
+    public float fadeTime = 1f;
+
+    [Header("Efecto de parpadeo")]
+    public int flickerCount = 4;
+    public float flickerSpeed = 0.15f;
+
+    [Header("Sonido")]
+    public AudioSource lightAudio;
 
     bool revealed = false;
 
     void Start()
     {
-        if (revealLight != null) revealLight.intensity = 0f;
+        if (revealLight != null)
+            revealLight.intensity = 0f;
     }
 
-    // Este método lo vamos a llamar desde TU script de revelado
     public void TurnOnLight()
     {
         if (revealed) return;
         revealed = true;
-        if (revealLight != null)
-            StartCoroutine(FadeLightUp());
+        StartCoroutine(LightSequence());
     }
 
-    System.Collections.IEnumerator FadeLightUp()
+    IEnumerator LightSequence()
     {
+        // 🔊 Reproducir sonido
+        if (lightAudio != null)
+            lightAudio.Play();
+
+        // 💡 Parpadeo inicial
+        for (int i = 0; i < flickerCount; i++)
+        {
+            if (revealLight != null)
+                revealLight.intensity = (i % 2 == 0) ? targetIntensity : 0f;
+
+            yield return new WaitForSeconds(flickerSpeed);
+        }
+
+        // 🌅 Transición suave hasta la intensidad final
         float t = 0f;
         float start = revealLight.intensity;
         while (t < fadeTime)
@@ -33,6 +54,7 @@ public class PaintingLightController : MonoBehaviour
             revealLight.intensity = Mathf.Lerp(start, targetIntensity, t / fadeTime);
             yield return null;
         }
+
         revealLight.intensity = targetIntensity;
     }
 }
