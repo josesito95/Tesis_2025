@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 376820213}
   - component: {fileID: 376820212}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: pared2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -772,7 +772,7 @@ GameObject:
   - component: {fileID: 609863203}
   - component: {fileID: 609863202}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: pared3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1204,7 +1204,7 @@ GameObject:
   - component: {fileID: 1007492889}
   - component: {fileID: 1007492888}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: pared1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1291,7 +1291,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -3.35, y: 2.09, z: 10.01}
-  m_LocalScale: {x: 0.5628357, y: 3.101085, z: 5.690806}
+  m_LocalScale: {x: 0.5628357, y: 4.8907013, z: 5.690806}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2220,7 +2220,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 126bf792f88f46c4299185bb9327357b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3681,7 +3681,7 @@ GameObject:
   - component: {fileID: 1958651864}
   - component: {fileID: 1958651863}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: techo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3926,7 +3926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2082812672
 MonoBehaviour:
   m_ObjectHideFlags: 0
