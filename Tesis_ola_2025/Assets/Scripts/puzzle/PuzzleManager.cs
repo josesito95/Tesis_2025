@@ -1,52 +1,70 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class PuzzleManager : MonoBehaviour
 {
-    public Image[] piezas; // Las piezas del puzzle (en orden actual)
-    public Sprite[] solucion; // Orden correcto
-    public GameObject pared; // La pared que se disolverá
+    public Image[] piezas;      // Las piezas de UI (Image)
+    public Sprite[] solucion;   // Sprites en orden correcto
+    public GameObject pared;    // Pared que se va a desvanecer
     public float fadeSpeed = 1f;
 
-    private bool puzzleCompletado = false;
-    private Material paredMat;
+    private bool puzzleResuelto = false;
 
     void Start()
     {
-        if (pared != null)
-            paredMat = pared.GetComponent<Renderer>().material;
+        // Mezcla las piezas al inicio
+        MezclarPiezas();
     }
 
-    // Llamar cuando se quiera verificar el puzzle (por ejemplo, al presionar un botón)
-    public void VerificarPuzzle()
+    void Update()
     {
-        for (int i = 0; i < piezas.Length; i++)
+        if (!puzzleResuelto && VerificarPuzzle())
         {
-            if (piezas[i].sprite != solucion[i])
-                return; // Si alguna no coincide, el puzzle no está resuelto
-        }
-
-        if (!puzzleCompletado)
-        {
-            puzzleCompletado = true;
+            Debug.Log("✅ Puzzle completado!");
+            puzzleResuelto = true;
             StartCoroutine(DesvanecerPared());
         }
     }
 
-    private IEnumerator DesvanecerPared()
+    void MezclarPiezas()
     {
-        if (paredMat == null) yield break;
-
-        Color color = paredMat.color;
-
-        while (color.a > 0)
+        // Desordena las imágenes (simple mezcla visual)
+        for (int i = 0; i < piezas.Length; i++)
         {
-            color.a -= Time.deltaTime * fadeSpeed;
-            paredMat.color = color;
+            int randomIndex = Random.Range(0, piezas.Length);
+            Sprite temp = piezas[i].sprite;
+            piezas[i].sprite = piezas[randomIndex].sprite;
+            piezas[randomIndex].sprite = temp;
+        }
+    }
+
+    bool VerificarPuzzle()
+    {
+        // Verifica si todas las piezas están en su sprite correcto
+        for (int i = 0; i < piezas.Length; i++)
+        {
+            if (piezas[i].sprite != solucion[i])
+                return false;
+        }
+        return true;
+    }
+
+    System.Collections.IEnumerator DesvanecerPared()
+    {
+        Debug.Log("🧱 Desvaneciendo pared...");
+
+        Renderer renderer = pared.GetComponent<Renderer>();
+        Color colorInicial = renderer.material.color;
+
+        while (renderer.material.color.a > 0)
+        {
+            Color nuevoColor = renderer.material.color;
+            nuevoColor.a -= Time.deltaTime * fadeSpeed;
+            renderer.material.color = nuevoColor;
             yield return null;
         }
 
         pared.SetActive(false);
+        Debug.Log("🚪 Pared desaparecida.");
     }
 }
