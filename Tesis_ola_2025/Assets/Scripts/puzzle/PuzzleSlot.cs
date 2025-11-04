@@ -3,21 +3,24 @@ using UnityEngine.EventSystems;
 
 public class PuzzleSlot : MonoBehaviour, IDropHandler
 {
-    public string pieceName; // nombre que debe coincidir con la pieza correcta
+    public string pieceName; // nombre exacto esperado (ej: "piece_1")
 
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject dropped = eventData.pointerDrag;
-        if (dropped != null && dropped.name == pieceName)
-        {
-            dropped.GetComponent<RectTransform>().anchoredPosition = 
-                GetComponent<RectTransform>().anchoredPosition;
+        if (eventData.pointerDrag == null) return;
 
-            Debug.Log("Pieza correcta colocada!");
+        var piece = eventData.pointerDrag.GetComponent<PuzzlePiece>();
+        if (piece == null || piece.IsPlaced()) return;
+
+        if (piece.name == pieceName)
+        {
+            // Colocar en este slot
+            piece.PlaceOnSlot(GetComponent<RectTransform>());
+            Debug.Log($"✅ Pieza correcta: {piece.name} → {pieceName}");
         }
         else
         {
-            Debug.Log("Pieza incorrecta.");
+            Debug.Log($"❌ Pieza incorrecta: {piece.name} (slot {pieceName})");
         }
     }
 }
