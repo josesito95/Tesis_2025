@@ -1,24 +1,42 @@
 using UnityEngine;
-using UnityEngine.Events;
-
-public enum CrystalType { Blue, Orange }
 
 public class PlayerInventory : MonoBehaviour
 {
-    public bool hasBlue;
-    public bool hasOrange;
+    public bool HasBlue  { get; private set; }
+    public bool HasOrange { get; private set; }
 
-    [Header("Eventos")]
-    public UnityEvent onBothCollected;   // lo conectamos al fade de la pared + mensaje final
-
-    public bool HasBoth => hasBlue && hasOrange;
-
-    public void Collect(CrystalType type)
+    // Llamados desde los cristales
+    public void CollectBlue()
     {
-        if (type == CrystalType.Blue)  hasBlue = true;
-        if (type == CrystalType.Orange) hasOrange = true;
+        HasBlue = true;
+        Debug.Log("[Inventory] Tomó cristal AZUL");
+        CheckBoth();
+    }
 
-        if (HasBoth)
-            onBothCollected?.Invoke();
+    public void CollectOrange()
+    {
+        HasOrange = true;
+        Debug.Log("[Inventory] Tomó cristal ROJO");
+        CheckBoth();
+    }
+
+    void CheckBoth()
+    {
+        if (HasBlue && HasOrange)
+        {
+            Debug.Log("[Inventory] ¡Tiene los dos cristales! Somos la combinación de calma y fuerza.");
+
+            // 🔓 Romper pared2 directamente
+            GameObject pared = GameObject.Find("pared2");
+            if (pared != null)
+            {
+                pared.SetActive(false);
+                Debug.Log("[Inventory] pared2 desactivada.");
+            }
+            else
+            {
+                Debug.LogWarning("[Inventory] No encontré un objeto llamado 'pared2' en la escena.");
+            }
+        }
     }
 }

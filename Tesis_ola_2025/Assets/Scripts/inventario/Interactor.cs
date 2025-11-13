@@ -5,13 +5,25 @@ public class Interactor : MonoBehaviour
 {
     public Camera cam;
     public float distance = 3f;
-    public LayerMask interactMask; // crea Layer "Interactable" y asignalo a tus orbes
-    public TextMeshProUGUI hintLabel; // opcional para mostrar “E — ...”
+    public LayerMask interactMask;   // capa Interactable
+    public TextMeshProUGUI hintLabel;
+
+    // 👉 referencia directa al inventario del jugador
+    public PlayerInventory playerInventory;
 
     void Start()
     {
         if (cam == null) cam = Camera.main;
-        if (hintLabel) hintLabel.text = "";
+
+        // Si no lo asignaste a mano, lo busco en la escena
+        if (playerInventory == null)
+        {
+            playerInventory = FindObjectOfType<PlayerInventory>();
+            if (playerInventory == null)
+                Debug.LogError("[Interactor] No encontré ningún PlayerInventory en la escena.");
+        }
+
+        if (hintLabel != null) hintLabel.text = "";
     }
 
     void Update()
@@ -19,20 +31,33 @@ public class Interactor : MonoBehaviour
         if (cam == null) return;
 
         Ray r = new Ray(cam.transform.position, cam.transform.forward);
+
         if (Physics.Raycast(r, out RaycastHit hit, distance, interactMask))
         {
-            var ia = hit.collider.GetComponent<IInteractable>();
+            // usa InParent para soportar collider en hijo
+            var ia = hit.collider.GetComponentInParent<IInteractable>();
+
             if (ia != null)
             {
-                if (hintLabel) hintLabel.text = $"E — {ia.Hint()}";
+                if (hintLabel != null) hintLabel.text = $"E — {ia.Hint()}";
+
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    var inv = GetComponentInParent<PlayerInventory>();
-                    ia.Interact(inv);
+                    Debug.Log("[Interactor] E presionada sobre " + hit.collider.name + " ia=" + ia);
+
+                    if (playerInventory == null)
+                    {
+                        Debug.LogError("[Interactor] playerInventory es NULL, no puedo interactuar.");
+                        return;
+                    }
+
+                    ia.Interact(playerInventory);
                 }
+
                 return;
             }
         }
-        if (hintLabel) hintLabel.text = "";
+
+        if (hintLabel != null) hintLabel.text = "";
     }
 }

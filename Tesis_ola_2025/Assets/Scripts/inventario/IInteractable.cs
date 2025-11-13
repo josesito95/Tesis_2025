@@ -1,5 +1,5 @@
 public interface IInteractable
 {
+    string Hint();
     void Interact(PlayerInventory inv);
-    string Hint(); // texto “E — Tomar…”
 }
