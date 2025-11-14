@@ -1,21 +1,14 @@
 using UnityEngine;
 
-public enum CrystalType
-{
-    Blue,
-    Orange
-}
-
 public class PickupCrystal : MonoBehaviour, IInteractable
 {
+    public enum CrystalType { Blue, Orange }
+
     public CrystalType type;
-    [TextArea]
-    public string pickupMessage = "Tomar cristal";
-
+    [TextArea] public string pickupMessage = "";
     public AudioSource pickupSfx;
-    public GameObject visual;   // opcional, si no lo usás deja vacío
+    public GameObject visual;
 
-    // Texto que muestra el Interactor
     public string Hint()
     {
         return "Tomar cristal";
@@ -23,29 +16,27 @@ public class PickupCrystal : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInventory inv)
     {
-        Debug.Log("[PickupCrystal] Interact con " + name);
-
         if (inv == null)
         {
-            Debug.LogError("[PickupCrystal] PlayerInventory es NULL, no puedo guardar el cristal.");
+            Debug.LogWarning("[PickupCrystal] PlayerInventory es NULL, no puedo guardar el cristal.");
             return;
         }
 
+        // Marcar en el inventario
         if (type == CrystalType.Blue)
-        {
             inv.CollectBlue();
-            Debug.Log("[PickupCrystal] Azul representa la calma.");
-        }
         else
-        {
             inv.CollectOrange();
-            Debug.Log("[PickupCrystal] Rojo representa la fuerza.");
-        }
 
+        // Mensaje del cristal
+        if (!string.IsNullOrEmpty(pickupMessage) && MessageUI.Instance != null)
+            MessageUI.Instance.Show(pickupMessage, 3f);
+
+        // Sonido
         if (pickupSfx != null)
             pickupSfx.Play();
 
-        // Ocultar cristal
+        // Apagar visual
         if (visual != null)
             visual.SetActive(false);
         else
