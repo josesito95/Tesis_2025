@@ -28,6 +28,11 @@ public class Interactor : MonoBehaviour
 
     void Update()
     {
+        if (Time.frameCount % 60 == 0)
+    Debug.Log("[Interactor] vivo");
+
+        Debug.Log("[Interactor] Update corriendo");
+
         if (cam == null) return;
 
         Ray r = new Ray(cam.transform.position, cam.transform.forward);
