@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: alfombra
-    second: {fileID: 2100000, guid: 8c5789422e6cc6f489a3e4463dd3f984, type: 2}
+    second: {fileID: 2100000, guid: 49c7902f393c5d843845ba88cfe9fc3f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: blanco_met
-    second: {fileID: 2100000, guid: b54dcbb4294471f4b86fe5df3c2a4a9a, type: 2}
+    second: {fileID: 2100000, guid: 1fdde1f095ecc6d4d8c183cc8371d269, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
