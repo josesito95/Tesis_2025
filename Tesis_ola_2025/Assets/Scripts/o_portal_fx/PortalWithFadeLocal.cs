@@ -3,9 +3,14 @@ using UnityEngine;
 public class PortalWithFadeLocal : MonoBehaviour
 {
     public string nextSceneName = "Nivel_2";
-    public FadeLocal fade; // arrastrar Canvas_Fade aquí
+    private FadeLocal fade;
+    private bool used = false;
 
-    bool used = false;
+    void Awake()
+    {
+        // Busca el FadeLocal que esté en la escena (Nivel_1)
+        fade = FindObjectOfType<FadeLocal>(true);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,8 +20,13 @@ public class PortalWithFadeLocal : MonoBehaviour
         used = true;
 
         if (fade != null)
+        {
+            Debug.Log("PORTAL: Encontré FadeLocal en " + fade.gameObject.name + " y hago fade OUT antes de cargar.");
             fade.FadeOutAndLoad(nextSceneName);
+        }
         else
-            Debug.LogError("Portal: No asignaste FadeLocal (arrastrá Canvas_Fade al campo fade).");
+        {
+            Debug.LogError("PORTAL: No encontré FadeLocal en la escena. (¿Canvas_Fade está activo en Nivel_1?)");
+        }
     }
 }

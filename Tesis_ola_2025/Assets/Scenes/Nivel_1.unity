@@ -2666,7 +2666,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7a23812ace9012049a42153ff2edf55b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1942053939}
   m_SourcePrefab: {fileID: 100100000, guid: 7a23812ace9012049a42153ff2edf55b, type: 3}
 --- !u!1 &1143487856
 GameObject:
@@ -3067,14 +3071,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1542365836}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b117f04240e59a7469e3a674b33ef91f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1542365837}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b117f04240e59a7469e3a674b33ef91f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1542365841}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b117f04240e59a7469e3a674b33ef91f,
         type: 3}
       insertIndex: -1
@@ -3920,33 +3916,6 @@ MonoBehaviour:
   floatHeight: 0.15
   floatSpeed: 1.5
   rotationSpeed: 25
---- !u!114 &1542365837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542365831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4456d3e133a1acb4bbcd1fa35a9c9b1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextSceneName: Nivel_2
-  disableAfterUse: 1
---- !u!114 &1542365841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542365831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18015c9067679634587d2d32fb9aad0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextSceneName: Nivel_2
 --- !u!114 &1542365845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3960,7 +3929,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: Nivel_2
-  fade: {fileID: 2091054795}
 --- !u!1 &1556573527
 GameObject:
   m_ObjectHideFlags: 0
@@ -5101,6 +5069,34 @@ MonoBehaviour:
   flickerCount: 4
   flickerSpeed: 0.15
   lightAudio: {fileID: 0}
+--- !u!1 &1942053935 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7a23812ace9012049a42153ff2edf55b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1127532897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1942053939
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942053935}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -931367220932094944, guid: 7a23812ace9012049a42153ff2edf55b, type: 3}
 --- !u!1 &1958651862
 GameObject:
   m_ObjectHideFlags: 0
