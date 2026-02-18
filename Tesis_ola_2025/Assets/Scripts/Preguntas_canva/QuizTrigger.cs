@@ -4,50 +4,75 @@ using UnityEngine.UI;
 public class QuizTrigger : MonoBehaviour
 {
     [Header("Configuraciones")]
-    public GameObject quizUI;       // El canvas del quiz
-    public GameObject wallToRemove; // La pared que queremos eliminar
-    public Button correctButton;    // Botón correcto
-    public Button[] allButtons;     // Todos los botones (incluido el correcto)
+    public GameObject quizUI;
+    public GameObject wallToRemove;
+    public Button correctButton;
+    public Button[] allButtons;
+
+    [Header("Bloqueo rápido")]
+    public bool unlocked = false; // 🔒 empieza bloqueado
 
     bool playerInside = false;
+    bool completed = false;
 
     void Start()
     {
         quizUI.SetActive(false);
 
-        // Asignamos eventos
-        foreach (Button b in allButtons)
+        foreach (Button btn in allButtons)
         {
-            b.onClick.AddListener(() => OnAnswer(b));
+            Button captured = btn; // ✅ evita bug de captura
+            captured.onClick.AddListener(() => OnAnswer(captured));
         }
+    }
+
+    // 🔓 llamá a esto cuando el cuadro se revele
+    public void UnlockTrigger()
+    {
+        unlocked = true;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !playerInside)
+        if (!other.CompareTag("Player") || playerInside || completed) return;
+
+        // ✅ Gate rápido
+        if (!unlocked)
         {
-            playerInside = true;
-            quizUI.SetActive(true);
-            // Pausa opcional
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            Debug.Log("Primero revelá el cuadro.");
+            return;
         }
+
+        playerInside = true;
+        quizUI.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player")) playerInside = false;
     }
 
     void OnAnswer(Button selected)
     {
+        if (completed) return;
+
         if (selected == correctButton)
         {
-            // ✅ Respuesta correcta
+            completed = true;
+
             wallToRemove.SetActive(false);
             quizUI.SetActive(false);
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            gameObject.SetActive(false); // apaga el trigger y listo
         }
         else
         {
-            // ❌ Incorrecta (puede quedarse igual o dar feedback)
             Debug.Log("Respuesta incorrecta, intenta de nuevo.");
         }
     }

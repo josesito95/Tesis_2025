@@ -1692,7 +1692,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &832575518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2185,6 +2185,7 @@ MonoBehaviour:
   resetSpeed: 2
   counter: {fileID: 774151892}
   lightController: {fileID: 1030432524}
+  quizTrigger: {fileID: 0}
 --- !u!114 &1030432524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2899,7 +2900,7 @@ GameObject:
   - component: {fileID: 1143487858}
   - component: {fileID: 1143487857}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: quiztrigger_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2924,6 +2925,7 @@ MonoBehaviour:
   - {fileID: 1101550943}
   - {fileID: 1166631321}
   - {fileID: 356680856}
+  unlocked: 0
 --- !u!135 &1143487858
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3331,6 +3333,7 @@ MonoBehaviour:
   resetSpeed: 2
   counter: {fileID: 774151892}
   lightController: {fileID: 1214525898}
+  quizTrigger: {fileID: 1143487857}
 --- !u!64 &1214525894
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4002,7 +4005,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1502410308}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5093e61bf4a15a489608aa44daa6399, type: 3}
   m_Name: 
@@ -4011,6 +4014,7 @@ MonoBehaviour:
   wallToRemove: {fileID: 0}
   correctButton: {fileID: 0}
   allButtons: []
+  unlocked: 0
 --- !u!1 &1511258119
 GameObject:
   m_ObjectHideFlags: 0
@@ -5294,6 +5298,7 @@ MonoBehaviour:
   resetSpeed: 2
   counter: {fileID: 774151892}
   lightController: {fileID: 1834379200}
+  quizTrigger: {fileID: 0}
 --- !u!64 &1834379196
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5541,7 +5546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1958651863
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5796,7 +5801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2082812672
 MonoBehaviour:
   m_ObjectHideFlags: 0

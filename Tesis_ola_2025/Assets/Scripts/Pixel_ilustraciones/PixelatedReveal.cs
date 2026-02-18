@@ -16,8 +16,11 @@ public class PixelatedReveal : MonoBehaviour
     [Header("Counter Reference")]
     public RevealCounter counter;
 
-    [Header("Luz de Revelado")] // 🔥 NUEVO
-    public PaintingLightController lightController; // 🔥 NUEVO
+    [Header("Luz de Revelado")]
+    public PaintingLightController lightController;
+
+    [Header("Quiz Trigger (PARCHE RAPIDO)")]
+    public QuizTrigger quizTrigger; // ⭐ NUEVO
 
     // Lectura externa
     public float Progress01 => Mathf.Clamp01(_gazeTimer / gazeSecondsToReveal);
@@ -73,9 +76,13 @@ public class PixelatedReveal : MonoBehaviour
 
                     _alreadyCounted = true;
 
-                    // 🔥 NUEVO: encender luz cuando se revela
+                    // 🔥 encender luz
                     if (lightController != null)
                         lightController.TurnOnLight();
+
+                    // ⭐ DESBLOQUEAR QUIZ TRIGGER
+                    if (quizTrigger != null)
+                        quizTrigger.UnlockTrigger();
                 }
             }
         }
